@@ -6,7 +6,7 @@ Software & Languages:
 Bootstrap, JavaScript, PHP, HTML, CSS, CSV
 
 API's:
-MarineTraffic by https://www.marinetraffic.com/ 
+MarineTraffic by https://www.marinetraffic.com/
 AIS HUB https://www.aishub.net/ 
 Places API By Google
 Maps API by Google
