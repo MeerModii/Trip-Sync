@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css">
     <script src="https://kit.fontawesome.com/bbb7b3d47b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/styles.css">
-    <script src="https://www.bing.com/maps/embed/viewer.aspx?key=AtTAdslVkIpX4aQPLrDCOw6tjV2AvulBk6u1G3oaWlRc6BykGyb_ymvImFosPxAm&cp=latitude~longitude&..."></script>
-
 </head>
 <body id="page-top">
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
@@ -24,7 +22,6 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto my-2 my-lg-0">
                     <li class="nav-item"><a class="nav-link" href="#services">Mapping <i class="fa-solid fa-map-location"></i></a></li>
-
                 </ul>
             </div>
         </div>
@@ -37,15 +34,13 @@
                     <h1 class="text-white font-weight-bold">Discover Oceans With Trip Sync</h1>
                     <hr class="divider">
                 </div>
-                <div class="col-lg-8 align-self-baseline">
+                <div class ="col-lg-8 align-self-baseline">
                     <p class="text-white-75 mb-5">Building Maps for Oceans</p>
                     <a class="btn btn-primary btn-xl" href="#services">Let's Begin</a>
                 </div>
             </div>
         </div>
     </header>
-
- 
 
     <section class="page-section" id="services">
         <div class="container px-4 px-lg-5">
@@ -54,21 +49,58 @@
             <br>
             <div class="seccontainer">
                 <div class="seccontainer__item">
-                    <form method = 'post' action = 'inputHandle.php'>
-                        <input type="text" class="secform__field" placeholder="Enter A Location" />
+                    <form method="post" action="inputHandle.php">
+                        <input type="text" name="location" class="secform__field" placeholder="Enter A Location" />
                         <button type="submit" class="secbtn secbtn--primary secbtn--inside uppercase">Send</button>
                     </form>
                 </div>
             </div>
-            
-                       
         </div>
     </section>
 
-        <div class="maps" >
-            <iframe width="1400" height="650" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=40.0583~-74.4057&lvl=8&w=1400&h=650&sty=s&typ=d&pp=40.0583~-74.4057&ps=&dir=0&mkt=en-us&form=BMEMJS"></iframe>
-        </div>
+    <div class="maps">
+    <!-- Include Bing Maps JavaScript API -->
+    <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap' async defer></script>
+    <div id="myMap" style="width: 1400px; height: 650px; margin: 0 auto;"></div>
+</div>
 
+    <?php
+    $njit_dsn = 'mysql:host=sql1.njit.edu;port=3306;dbname=mnm23';
+    $njit_username = 'mnm23';
+    $njit_password = 'SQLdatabase1*';
+
+    try {
+        $database = new PDO($njit_dsn, $njit_username, $njit_password);
+    } catch (PDOException $exception) {
+        $error_message = $exception->getMessage();
+        include('databaseError.php');
+        exit();
+    }
+
+    $query = 'SELECT Latitude, Longitude FROM mytable';
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $portsData = $statement->fetchAll();
+    $statement->closeCursor();
+    ?>
+
+    <script>
+        function GetMap() {
+            var map = new Microsoft.Maps.Map('#myMap', {
+                credentials: 'AtTAdslVkIpX4aQPLrDCOw6tjV2AvulBk6u1G3oaWlRc6BykGyb_ymvImFosPxAm',
+                center: new Microsoft.Maps.Location(40.057347, -74.414532)
+            });
+            <?php
+            foreach ($portsData as $data) {
+                echo "var location = new Microsoft.Maps.Location(" . $data['Latitude'] . ", " . $data['Longitude'] . ");\n";
+                echo "var pin = new Microsoft.Maps.Pushpin(location, {title: 'Port', text: 'P'});\n";
+                echo "map.entities.push(pin);\n";
+            }
+            ?>
+        }
+        // temperory
+ 
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
