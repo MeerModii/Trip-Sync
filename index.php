@@ -34,7 +34,7 @@
                     <h1 class="text-white font-weight-bold">Discover Oceans With Trip Sync</h1>
                     <hr class="divider">
                 </div>
-                <div class ="col-lg-8 align-self-baseline">
+                <div class="col-lg-8 align-self-baseline">
                     <p class="text-white-75 mb-5">Building Maps for Oceans</p>
                     <a class="btn btn-primary btn-xl" href="#services">Let's Begin</a>
                 </div>
@@ -47,22 +47,23 @@
             <h2 class="text-center mt-0">Let's Begin The Search!</h2>
             <hr class="divider" />
             <br>
+
             <div class="seccontainer">
                 <div class="seccontainer__item">
                     <form method="post" action="inputHandle.php">
-                        <input type="text" name="location" class="secform__field" placeholder="Enter A Location" />
-                        <button type="submit" class="secbtn secbtn--primary secbtn--inside uppercase">Send</button>
+                        <input type="text" name="location" class="secform__field" id="searchTbx" placeholder="Enter A Location" />
+                        <button type="button" class="secbtn secbtn--primary secbtn--inside uppercase" onclick="Search()">Search</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
-
+    
     <div class="maps">
-    <!-- Include Bing Maps JavaScript API -->
-    <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap' async defer></script>
-    <div id="myMap" style="width: 1400px; height: 650px; margin: 0 auto;"></div>
-</div>
+        <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap' async defer></script>
+        <div id="myMap" style="width: 1700px; height: 800px; margin: 0 auto;"></div>
+    </div>
+    <br><br>
 
     <?php
     $njit_dsn = 'mysql:host=sql1.njit.edu;port=3306;dbname=mnm23';
@@ -71,7 +72,8 @@
 
     try {
         $database = new PDO($njit_dsn, $njit_username, $njit_password);
-    } catch (PDOException $exception) {
+    } 
+    catch (PDOException $exception) {
         $error_message = $exception->getMessage();
         include('databaseError.php');
         exit();
@@ -82,24 +84,80 @@
     $statement->execute();
     $portsData = $statement->fetchAll();
     $statement->closeCursor();
+
+    $queryShip  = 'SELECT Latitude, Longitude FROM mytableShipOne';
+    $statementTwo = $database->prepare($queryShip);
+    $statementTwo->execute();
+    $shipdataOne = $statementTwo->fetchAll();
+    $statementTwo->closeCursor();
+
+    $queryShipTwo  = 'SELECT Latitude, Longitude FROM mytableShipTwo';
+    $statementThree = $database->prepare($queryShipTwo);
+    $statementThree->execute();
+    $shipdataTwo = $statementThree->fetchAll();
+    $statementThree->closeCursor();
     ?>
 
     <script>
+        var map, searchManager;
         function GetMap() {
-            var map = new Microsoft.Maps.Map('#myMap', {
+            map = new Microsoft.Maps.Map('#myMap', {
                 credentials: 'AtTAdslVkIpX4aQPLrDCOw6tjV2AvulBk6u1G3oaWlRc6BykGyb_ymvImFosPxAm',
                 center: new Microsoft.Maps.Location(40.057347, -74.414532)
+                
             });
             <?php
-            foreach ($portsData as $data) {
-                echo "var location = new Microsoft.Maps.Location(" . $data['Latitude'] . ", " . $data['Longitude'] . ");\n";
-                echo "var pin = new Microsoft.Maps.Pushpin(location, {title: 'Port', text: 'P'});\n";
-                echo "map.entities.push(pin);\n";
-            }
+                foreach ($portsData as $data) {
+                    echo "var location = new Microsoft.Maps.Location(" . $data['Latitude'] . ", " . $data['Longitude'] . ");\n";
+                    echo "var pin = new Microsoft.Maps.Pushpin(location, { title: 'Port', text: 'P' });\n";
+                    echo "map.entities.push(pin);\n";
+                }
+            ?>
+            <?php
+                foreach ($shipdataOne as $shipdataOne) {
+                    echo "var location = new Microsoft.Maps.Location(" . $shipdataOne['Latitude'] . ", " . $shipdataOne['Longitude'] . ");\n";
+                    echo "var pin = new Microsoft.Maps.Pushpin(location, { title: 'Ship', text: 'S' });\n";
+                    echo "map.entities.push(pin);\n";
+                }
+            ?>
+            <?php
+                foreach ($shipdataTwo as $shipdataTwo) {
+                    echo "var location = new Microsoft.Maps.Location(" . $shipdataTwo['Latitude'] . ", " . $shipdataTwo['Longitude'] . ");\n";
+                    echo "var pin = new Microsoft.Maps.Pushpin(location, { title: 'Ship', text: 'S' });\n";
+                    echo "map.entities.push(pin);\n";
+                }
             ?>
         }
-        // temperory
- 
+
+        function Search() {
+            if (!searchManager) {
+                Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
+                    searchManager = new Microsoft.Maps.Search.SearchManager(map);
+                    geocodeQuery();
+                });
+            } else {
+                geocodeQuery();
+            }
+        }
+
+        function geocodeQuery() {
+            var query = document.getElementById('searchTbx').value;
+            var searchRequest = {
+                where: query,
+                callback: function (r) {
+                    if (r && r.results && r.results.length > 0) {
+                        var loc = r.results[0].location;
+                        map.setView({ center: loc, zoom: 10 });
+                    } else {
+                        alert("No results found.");
+                    }
+                },
+                errorCallback: function (e) {
+                    alert("An error occurred while searching for the location.");
+                }
+            };
+            searchManager.geocode(searchRequest);
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
