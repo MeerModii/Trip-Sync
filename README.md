@@ -1,6 +1,6 @@
 # TripSync-HackNJIT [Under Development]
 
-Trip Sync is a dynamic and user-friendly website designed to assist ocean enthusiasts and travelers in planning their trips, finding ports, ships, and exploring the ocean.
+Trip Sync is a dynamic and user-friendly website designed to assist ocean enthusiasts and travelers in planning their trips, finding ports, track ships, and exploring the ocean with ease. We aim to build an alternative of google maps for oceans.
 
 Software & Languages: 
 Bootstrap, JavaScript, PHP, HTML, CSS, CSV
