@@ -6,6 +6,6 @@ Software & Languages:
 Bootstrap, JavaScript, PHP, HTML, CSS, CSV
 
 API's:
-Maps API by Microsoft Bing https://www.microsoft.com/en-us/maps/bing-maps/choose-your-bing-maps-api
-MarineTraffic by https://www.marinetraffic.com/
-AIS HUB https://www.aishub.net/ 
+Maps API by Microsoft Bing https://www.microsoft.com/en-us/maps/bing-maps/choose-your-bing-maps-api,
+MarineTraffic by https://www.marinetraffic.com/,
+AIS HUB https://www.aishub.net/,
