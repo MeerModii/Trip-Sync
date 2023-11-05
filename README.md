@@ -1,5 +1,5 @@
 # TripSync-HackNJIT [Under Development]
-# Demo: https://www.loom.com/share/d79d6659d45c48f28c997bfa5914c842?sid=2c34e6c5-08ed-4bd8-9ee1-7ffa698f1c66
+# Demo: https://www.youtube.com/watch?v=V4HyIKVh6dM&ab_channel=MeerModi
 
 Trip Sync is a dynamic and user-friendly website designed to assist ocean enthusiasts and travelers in planning their trips, finding ports, track ships, and exploring the ocean with ease. We aim to build an alternative of google maps for oceans.
 
