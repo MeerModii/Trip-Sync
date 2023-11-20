@@ -20,7 +20,7 @@ Check out the demo of TripSync on [YouTube](https://www.youtube.com/watch?v=V4Hy
   - CSS
   - JavaScript
   - Bootstrap
-  - 
+    
 - **Backend:**
   - PHP
   - SQL
