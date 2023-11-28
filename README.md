@@ -37,4 +37,7 @@ Check out the demo of TripSync on [YouTube](https://www.youtube.com/watch?v=V4Hy
 ## Project Status
 TripSync is currently under active development, and we welcome contributions and feedback from the community.
 
+## Acknowledgments
+Special thanks to the providers of the APIs used in this project: Microsoft Bing Maps, MarineTraffic, and AIS HUB.
 
+Feel free to explore the oceans with TripSync, and stay tuned for exciting updates as we continue to develop and improve the application!
