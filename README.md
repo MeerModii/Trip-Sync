@@ -14,16 +14,7 @@ Check out the demo of TripSync on [YouTube](https://www.youtube.com/watch?v=V4Hy
 
 - **User-Friendly Interface:** Trip Sync is designed with a user-friendly interface to ensure a seamless and enjoyable experience for ocean enthusiasts.
 
-## Technologies Used:
-- **Frontend:**
-  - HTML
-  - CSS
-  - JavaScript
-  - Bootstrap
-    
-- **Backend:**
-  - PHP
-  - SQL
+
 
 - **APIs:**
   - [Microsoft Bing Maps API](https://www.microsoft.com/en-us/maps/bing-maps/choose-your-bing-maps-api)
