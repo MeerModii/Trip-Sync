@@ -34,4 +34,10 @@ Check out the demo of TripSync on [YouTube](https://www.youtube.com/watch?v=V4Hy
 ![TripSync_Home](https://github.com/MeerModii/Trip-Sync/assets/116285279/fea5addf-8456-435a-ab18-718b0ef88cb3)
 ![TripSyncMap](https://github.com/MeerModii/Trip-Sync/assets/116285279/b6cbc70f-2ac3-40a1-a505-ffe79e3123fd)
 
+## Project Status
+TripSync is currently under active development, and we welcome contributions and feedback from the community.
 
+## Acknowledgments
+Special thanks to the providers of the APIs used in this project: Microsoft Bing Maps, MarineTraffic, and AIS HUB.
+
+Feel free to explore the oceans with TripSync, and stay tuned for exciting updates as we continue to develop and improve the application!
